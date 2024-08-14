@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-console.log("Hello, this is your CLI!");
+import { TaskTrackerCLI } from "./infraestructure/drivind-adapters/CLI";
+
+new TaskTrackerCLI()
