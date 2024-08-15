@@ -16,8 +16,12 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
         return tasks
     }
 
-    findById(): Promise<ITask | null> {
-        throw new Error("Method not implemented.");
+    async findById(id: number): Promise<ITask> {
+        const task = await this.findAll()
+        const findTask = task.find(task => task.id === id)
+        if (!findTask) throw new Error("Task not found");
+
+        return findTask
     } 
 
     async create(entity: ICreateTask): Promise<ITask> {
@@ -69,7 +73,7 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
 
         return findTask
     }
-    
+
     delete(id: number): Promise<void | null> {
         throw new Error("Method not implemented.");
     }

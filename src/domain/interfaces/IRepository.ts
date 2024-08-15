@@ -18,7 +18,7 @@ export interface IRepositoryAsync<E, C, U> {
  */
 export interface IDAOAsync<E, C, U> {
   findAll(): Promise<E[]>;
-  findById(id: number): Promise<E | null>;
+  findById(id: number): Promise<E>;
   create(entity: C): Promise<E>;
   update(id: number, entity: U): Promise<E>;
   delete(id: number): Promise<void | null>;

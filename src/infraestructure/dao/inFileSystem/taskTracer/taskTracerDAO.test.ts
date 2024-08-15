@@ -55,7 +55,20 @@ describe('FileSystemTaskTrackerDAO', () => {
         })
     })
     
-    // describe('findById Method', () => {})
+    describe('findById Method', () => {
+        test('should return a task by id', async () => {
+            const id = jsonData[0].id
+            const task = await dao.findById(id);
+
+            const jsonDataWithStringDates = jsonData.map(task => ({
+                ...task,
+                createdAt: task.createdAt.toISOString(),
+                updatedAt: task.updatedAt ? task.updatedAt?.toISOString() : undefined,
+              }));
+
+            expect(task).toEqual(jsonDataWithStringDates[0]);
+        })
+    })
     
     describe('create Method', () => {
         test('should create a new task', async () => {
