@@ -78,15 +78,23 @@ describe('TaskTrackerRepositoryAsync', () => {
         })
 
         test('should return data created', async () => {
-            const newTask: ICreateTask = { description: 'description' } 
-
             const taskTrackerInFileSystem = new TaskTrackerInFileSystem(filePath);
-            const task = await taskTrackerInFileSystem.write(newTask);
+            
+            const allTask = await taskTrackerInFileSystem.read();
+            const newTask: ITask = {
+                id: 3,
+                description: 'description',
+                status: TaskStatus.TODO,
+                createdAt: new Date(),
+                updatedAt: undefined
+            }
 
-            expect(task.description).toBe(newTask.description)
-            expect(task.id).toBe(jsonData.length + 1)
-            expect(task.createdAt).toBeDefined()
-            expect(task.updatedAt).toBeUndefined()
+            const addNewObject = allTask.concat(newTask)
+            await taskTrackerInFileSystem.write(addNewObject);
+
+            const allTaskAfterAdd = await taskTrackerInFileSystem.read();
+
+            expect(allTaskAfterAdd.length).toBe(jsonData.length + 1)
         })
     })
 })

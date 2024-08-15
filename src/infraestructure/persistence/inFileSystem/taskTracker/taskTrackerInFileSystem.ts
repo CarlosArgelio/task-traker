@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import { ICreateTask, IPersistenceInFileSystemAsync, ITask, TaskStatus } from "../../../../domain/interfaces";
 
-export class TaskTrackerInFileSystem implements IPersistenceInFileSystemAsync<ITask, ICreateTask> {
+export class TaskTrackerInFileSystem implements IPersistenceInFileSystemAsync<ITask> {
     private readonly filePath: string
     
     constructor(filePath: string) {
@@ -18,27 +18,8 @@ export class TaskTrackerInFileSystem implements IPersistenceInFileSystemAsync<IT
         return JSON.parse(data);
     }
 
-    async write(data: ICreateTask): Promise<ITask> {
-        const findAllIds = (await this.read()).map(task => task.id);
-        const newId = Math.max(...findAllIds) + 1
-        
-        const newTask: ITask = {
-            id: newId,
-            description: data.description,
-            status: TaskStatus.TODO,
-            createdAt: new Date(),
-            updatedAt: undefined
-        }
-
-        const addNewObject = (await this.read()).concat(newTask)
-        const taskObjectToString = JSON.stringify(addNewObject)
+    async write(data: ITask[]): Promise<void> {
+        const taskObjectToString = JSON.stringify(data)
         await fs.writeFile(this.filePath, taskObjectToString, 'utf-8');
-
-        const findAllTask = (await this.read())
-        const findTaskCreated = findAllTask.find(task => task.id === newId)
-
-        if (!findTaskCreated) throw new Error("Task not found");
-        
-        return findTaskCreated
     }
 }
