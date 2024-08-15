@@ -46,10 +46,7 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
         await this.fileSystem.write(addNewObject)
         
         // find new object task
-        const findAllWithNewObject = await this.findAll()
-        const findTask = findAllWithNewObject.find(task => task.id === newId)
-        if (!findTask) throw new Error("Task not found");
-
+        const findTask = await this.findById(newId)
         return findTask
     }
     async update(id: number, entity: IUpdateTask): Promise<ITask> {
@@ -66,11 +63,8 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
         // write 
         await this.fileSystem.write(findAll)
 
-        // find new object task
-        const findAllWithNewObject = await this.findAll()
-        const findTask = findAllWithNewObject.find(task => task.id === id)
-        if (!findTask) throw new Error("Task not found");
-
+        // find new task
+        const findTask = await this.findById(id)
         return findTask
     }
 
