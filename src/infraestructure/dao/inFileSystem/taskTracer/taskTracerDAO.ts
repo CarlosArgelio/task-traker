@@ -9,16 +9,20 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
         this.fileSystem = fileSystem        
     }
 
-    async findAll(): Promise<ITask[] | null> {
-        return await this.fileSystem.read()
+    async findAll(): Promise<ITask[]> {
+        const tasks = await this.fileSystem.read()
+        if (!tasks) throw new Error("Tasks not found");
+
+        return tasks
     }
-    findByAttribute(id: number): Promise<ITask | null> {
+
+    findById(): Promise<ITask | null> {
         throw new Error("Method not implemented.");
-    }
+    } 
+
     async create(entity: ICreateTask): Promise<ITask> {
         // get all ids
         const findAll = await this.findAll()
-        if (!findAll) throw new Error("Task not found");
 
         // create new id
         const findAllIds = findAll.map(task => task.id);
@@ -39,15 +43,33 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
         
         // find new object task
         const findAllWithNewObject = await this.findAll()
-        if (!findAllWithNewObject) throw new Error("Task not found");
-        const find = findAllWithNewObject?.find(task => task.id === newId)
-        if (!find) throw new Error("Task not found");
+        const findTask = findAllWithNewObject.find(task => task.id === newId)
+        if (!findTask) throw new Error("Task not found");
 
-        return find
+        return findTask
     }
-    update(id: number, entity: IUpdateTask): Promise<ITask> {
-        throw new Error("Method not implemented.");
+    async update(id: number, entity: IUpdateTask): Promise<ITask> {
+        const findAll = await this.findAll()
+
+        // find index
+        const index = findAll.findIndex(task => task.id === id)
+        if (index === -1) throw new Error("Task not found");
+
+        // update data in memory
+        const updateTask = { ...findAll[index], ...entity };
+        findAll[index] = updateTask;
+
+        // write 
+        await this.fileSystem.write(findAll)
+
+        // find new object task
+        const findAllWithNewObject = await this.findAll()
+        const findTask = findAllWithNewObject.find(task => task.id === id)
+        if (!findTask) throw new Error("Task not found");
+
+        return findTask
     }
+    
     delete(id: number): Promise<void | null> {
         throw new Error("Method not implemented.");
     }

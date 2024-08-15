@@ -13,4 +13,4 @@ export interface ITask {
 }
 
 export type ICreateTask = Pick<ITask, 'description'>
-export type IUpdateTask = Pick<ITask, 'description' | 'status'>
+export type IUpdateTask = Partial<Pick<ITask, 'description' | 'status'>>

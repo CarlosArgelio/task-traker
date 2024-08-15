@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
-import { ICreateTask, ITask, TaskStatus } from "../../../../domain/interfaces";
+import { ICreateTask, ITask, IUpdateTask, TaskStatus } from "../../../../domain/interfaces";
 import { TaskTrackerInFileSystem } from "../../../persistence";
 import { FileSystemTaskTrackerDAO } from "./taskTracerDAO";
 
@@ -55,7 +55,7 @@ describe('FileSystemTaskTrackerDAO', () => {
         })
     })
     
-    // describe('findByAttribute Method', () => {})
+    // describe('findById Method', () => {})
     
     describe('create Method', () => {
         test('should create a new task', async () => {
@@ -71,7 +71,19 @@ describe('FileSystemTaskTrackerDAO', () => {
         })
     })
 
-    // describe('update Method', () => {})
+    describe('update Method', () => {
+        test('should update a task', async () => {
+            const dataToManipulate = jsonData[0]
+            const id = dataToManipulate.id
+            const updateData: IUpdateTask = { description: 'description update' }
+            
+            const update = await dao.update(id, updateData);
+    
+            expect(update.description).toBe(updateData.description)
+            expect(update.updatedAt).toBeDefined()
+        })
+
+    })
     // describe('create Method', () => {})
 
 })
