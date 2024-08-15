@@ -9,7 +9,7 @@ export interface ITask {
     description: string;
     status: TaskStatus;
     createdAt: Date;
-    updatedAt: Date;
+    updatedAt: Date | undefined;
 }
 
 export type ICreateTask = Pick<ITask, 'description'>
