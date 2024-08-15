@@ -68,7 +68,9 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
         return findTask
     }
 
-    delete(id: number): Promise<void | null> {
-        throw new Error("Method not implemented.");
+    async delete(id: number): Promise<void> {
+        const findAll = await this.findAll()
+        const filter = findAll.filter(task => task.id !== id)
+        await this.fileSystem.write(filter)
     }
 }

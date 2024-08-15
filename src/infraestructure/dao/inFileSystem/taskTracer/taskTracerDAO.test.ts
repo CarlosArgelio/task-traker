@@ -97,6 +97,17 @@ describe('FileSystemTaskTrackerDAO', () => {
         })
 
     })
-    // describe('create Method', () => {})
+
+    describe('delete Method', () => {
+        test('should delete a task', async () => {
+            const dataToManipulate = jsonData[0]
+            const id = dataToManipulate.id
+
+            await dao.delete(id);
+
+            const findAll = await dao.findAll()
+            expect(findAll.length).toBe(jsonData.length - 1)
+        })
+    })
 
 })

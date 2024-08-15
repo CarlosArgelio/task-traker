@@ -21,5 +21,5 @@ export interface IDAOAsync<E, C, U> {
   findById(id: number): Promise<E>;
   create(entity: C): Promise<E>;
   update(id: number, entity: U): Promise<E>;
-  delete(id: number): Promise<void | null>;
+  delete(id: number): Promise<void>;
 }
