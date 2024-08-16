@@ -1,7 +1,6 @@
-import { ICreateTask } from "../../../domain/interfaces";
 import { TaskTrackerService } from "../../../domain/services/taskTrackerService/taskTrackerService";
 
-export class TaskTrackerCreatorUseCase {
+export class TaskTrackerFinderUseCase {
     private readonly service: TaskTrackerService
     
     constructor(service: TaskTrackerService) {

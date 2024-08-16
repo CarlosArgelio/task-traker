@@ -18,7 +18,7 @@ export class TaskTrackerInFileSystem implements IPersistenceInFileSystemAsync<IT
         return JSON.parse(data);
     }
 
-    async write(data: ITask[]): Promise<void> {
+    async write(data: ITask[]): Promise<void> {        
         const taskObjectToString = JSON.stringify(data)
         await fs.writeFile(this.filePath, taskObjectToString, 'utf-8');
     }

@@ -25,12 +25,14 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
     } 
 
     async create(entity: ICreateTask): Promise<ITask> {
+        
         // get all ids
         const findAll = await this.findAll()
 
         // create new id
         const findAllIds = findAll.map(task => task.id);
-        const newId = Math.max(...findAllIds) + 1
+        // If not ids return 1
+        const newId = findAllIds.length > 0 ? Math.max(...findAllIds) + 1 : 1;
         
         // create new object task
         const newTask: ITask = {
