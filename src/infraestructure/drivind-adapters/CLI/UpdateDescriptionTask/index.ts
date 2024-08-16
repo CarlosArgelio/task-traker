@@ -1,0 +1,1 @@
+export { UpdateDescriptionTaskCLI } from './updateDescriptionTask';

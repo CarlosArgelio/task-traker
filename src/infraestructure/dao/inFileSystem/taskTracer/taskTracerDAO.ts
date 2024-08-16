@@ -1,78 +1,82 @@
-import { ICreateTask, ITask, IUpdateTask, TaskStatus } from "../../../../domain/interfaces";
-import { ITaskTrackerDAOAsync } from "../../../../domain/repositories/taskTracker/tastTracker";
-import { TaskTrackerInFileSystem } from "./../../../persistence";
+import {
+  ICreateTask,
+  ITask,
+  IUpdateTask,
+  TaskStatus,
+} from '../../../../domain/interfaces';
+import { ITaskTrackerDAOAsync } from '../../../../domain/repositories/taskTracker/tastTracker';
+import { TaskTrackerInFileSystem } from './../../../persistence';
 
 export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
-    private fileSystem: TaskTrackerInFileSystem
+  private fileSystem: TaskTrackerInFileSystem;
 
-    constructor(fileSystem: TaskTrackerInFileSystem)  {
-        this.fileSystem = fileSystem        
-    }
+  constructor(fileSystem: TaskTrackerInFileSystem) {
+    this.fileSystem = fileSystem;
+  }
 
-    async findAll(): Promise<ITask[]> {
-        const tasks = await this.fileSystem.read()
-        if (!tasks) throw new Error("Tasks not found");
+  async findAll(): Promise<ITask[]> {
+    const tasks = await this.fileSystem.read();
+    if (!tasks) throw new Error('Tasks not found');
 
-        return tasks
-    }
+    return tasks;
+  }
 
-    async findById(id: number): Promise<ITask> {
-        const task = await this.findAll()
-        const findTask = task.find(task => task.id === id)
-        if (!findTask) throw new Error("Task not found");
+  async findById(id: number): Promise<ITask> {
+    const task = await this.findAll();
+    const findTask = task.find((task) => task.id === id);
+    if (!findTask) throw new Error('Task not found');
 
-        return findTask
-    } 
+    return findTask;
+  }
 
-    async create(entity: ICreateTask): Promise<ITask> {
-        
-        // get all ids
-        const findAll = await this.findAll()
+  async create(entity: ICreateTask): Promise<ITask> {
+    // get all ids
+    const findAll = await this.findAll();
 
-        // create new id
-        const findAllIds = findAll.map(task => task.id);
-        // If not ids return 1
-        const newId = findAllIds.length > 0 ? Math.max(...findAllIds) + 1 : 1;
-        
-        // create new object task
-        const newTask: ITask = {
-            id: newId,
-            description: entity.description,
-            status: TaskStatus.TODO,
-            createdAt: new Date(),
-            updatedAt: undefined
-        }
+    // create new id
+    const findAllIds = findAll.map((task) => task.id);
+    // If not ids return 1
+    const newId = findAllIds.length > 0 ? Math.max(...findAllIds) + 1 : 1;
 
-        // concat object task to array tasks
-        const addNewObject = findAll.concat(newTask)
-        await this.fileSystem.write(addNewObject)
-        
-        // find new object task
-        const findTask = await this.findById(newId)
-        return findTask
-    }
-    async update(id: number, entity: IUpdateTask): Promise<ITask> {
-        const findAll = await this.findAll()
+    // create new object task
+    const newTask: ITask = {
+      id: newId,
+      description: entity.description,
+      status: TaskStatus.TODO,
+      createdAt: new Date(),
+      updatedAt: undefined,
+    };
 
-        // find index
-        const index = findAll.findIndex(task => task.id === id)
-        if (index === -1) throw new Error("Task not found");
+    // concat object task to array tasks
+    const addNewObject = findAll.concat(newTask);
+    await this.fileSystem.write(addNewObject);
 
-        // update data in memory
-        const updateTask = { ...findAll[index], ...entity };
-        findAll[index] = updateTask;
+    // find new object task
+    const findTask = await this.findById(newId);
+    return findTask;
+  }
+  async update(id: number, entity: IUpdateTask): Promise<ITask> {
+    const findAll = await this.findAll();
 
-        // write 
-        await this.fileSystem.write(findAll)
+    // find index
+    const index = findAll.findIndex((task) => task.id === id);
+    if (index === -1) throw new Error('Task not found');
 
-        // find new task
-        const findTask = await this.findById(id)
-        return findTask
-    }
+    // update data in memory
+    const updateTask = { ...findAll[index], ...entity };
+    findAll[index] = updateTask;
 
-    async delete(id: number): Promise<void> {
-        const findAll = await this.findAll()
-        const filter = findAll.filter(task => task.id !== id)
-        await this.fileSystem.write(filter)
-    }
+    // write
+    await this.fileSystem.write(findAll);
+
+    // find new task
+    const findTask = await this.findById(id);
+    return findTask;
+  }
+
+  async delete(id: number): Promise<void> {
+    const findAll = await this.findAll();
+    const filter = findAll.filter((task) => task.id !== id);
+    await this.fileSystem.write(filter);
+  }
 }

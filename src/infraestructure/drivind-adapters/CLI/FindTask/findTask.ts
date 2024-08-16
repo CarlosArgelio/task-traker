@@ -1,3 +1,4 @@
+import { table } from "console";
 import { TaskTrackerFinderUseCase } from "../../../../application/useCases";
 
 export class FindTaskCLI {
@@ -10,9 +11,8 @@ export class FindTaskCLI {
     async findTask() {
         try {
             const newTask = await this.useCase.run()
-            newTask.forEach(task => {
-                console.log(`ID: ${task.id}, Description: ${task.description}, status: ${task.status}`);
-            });
+            const mapping = newTask.map(task => ([ task.id, task.description, task.status ]))
+            table(mapping)
         } catch (error) {
             throw new Error(`Error creating task: ${error}`)
         }

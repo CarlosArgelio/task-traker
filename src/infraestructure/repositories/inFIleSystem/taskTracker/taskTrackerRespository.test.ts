@@ -60,4 +60,15 @@ describe('TaskTrackerRepositoryAsync', () => {
             expect(findAll).toEqual(jsonDataWithStringDates);
         })
     })
+
+    describe('update method', () => {
+        test('should update status a task', async () => {
+            const update = await repositorie.update(1, { status: TaskStatus.IN_PROGRESS });
+            expect(update.status).toEqual(TaskStatus.IN_PROGRESS);
+        })
+        test('should update description a task', async () => {
+            const update = await repositorie.update(1, { description: 'change' });
+            expect(update.description).toEqual('change');
+        })
+    })
 })
