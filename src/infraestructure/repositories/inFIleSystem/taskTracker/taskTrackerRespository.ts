@@ -21,8 +21,14 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
     findById(id: number): Promise<ITask> {
         throw new Error("Method not implemented.");
     }
-    save(entity: ICreateTask): Promise<ITask> {
-        throw new Error("Method not implemented.");
+    async save(entity: ICreateTask): Promise<ITask> {
+        try {
+            const task = await this.taskDAO.create(entity)
+            return task
+        } catch (error) {
+            // @ts-ignore
+            throw new Error(error)
+        }
     }
     update(id: number, entity: IUpdateTask): Promise<ITask> {
         throw new Error("Method not implemented.");

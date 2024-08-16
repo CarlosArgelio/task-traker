@@ -1,4 +1,4 @@
-import { ITask, TaskStatus } from "../../../../domain/interfaces";
+import { ICreateTask, ITask, TaskStatus } from "../../../../domain/interfaces";
 import { FileSystemTaskTrackerDAO } from "../../../dao"
 import { TaskTrackerInFileSystem } from "../../../persistence"
 import { TaskTrackerRepositoryAsync } from "./taskTrackerRespository"
@@ -40,8 +40,11 @@ describe('TaskTrackerRepositoryAsync', () => {
     })
     
     describe('save method', () => {
-        test('should save a task', () => {
-            
+        test('should save a task', async () => {
+            const task: ICreateTask = { description: 'Description 3' }
+            const save = await repositorie.save(task);
+            expect(save.description).toEqual(task.description);
+
         })
     })
     describe('findAll method', () => {
