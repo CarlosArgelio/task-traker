@@ -1,4 +1,3 @@
-import path from 'node:path';
 import { TaskTrackerService } from '../../../domain/services/taskTrackerService/taskTrackerService';
 import { FileSystemTaskTrackerDAO } from '../../dao';
 import { TaskTrackerRepositoryAsync } from '../../repositories/inFIleSystem';
@@ -16,15 +15,17 @@ import { TaskStatus } from '../../../domain/interfaces';
 import { DeleteTaskCLI } from './DeleteTask';
 
 export class TaskTrackerCLI {
-  constructor() {
-    console.log('Hello, this is your CLI!');
+  private readonly path: string;
+
+  constructor(path: string) {
+    this.path = path;
     this.gettingStarted();
   }
 
   async gettingStarted() {
     const args = process.argv.slice(2);
 
-    const file = path.resolve(__dirname, './../../db/JSON/db.json');
+    const file = this.path;
     const service = new TaskTrackerService(
       new TaskTrackerRepositoryAsync(
         new FileSystemTaskTrackerDAO(new TaskTrackerInFileSystem(file)),
