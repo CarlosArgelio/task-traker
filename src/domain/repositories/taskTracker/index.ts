@@ -1,1 +1,1 @@
-export { ITaskTrackerRepositoryAsync } from './tastTracker'
+export { ITaskTrackerRepositoryAsync } from './tastTracker';

@@ -1,1 +1,1 @@
-export { TaskTrackerCLI } from './CLI'
+export { TaskTrackerCLI } from './CLI';

@@ -1,1 +1,1 @@
-export { TaskTrackerInFileSystem } from './taskTracker'
+export { TaskTrackerInFileSystem } from './taskTracker';

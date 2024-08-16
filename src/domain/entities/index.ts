@@ -1,1 +1,1 @@
-export { EntityTaskTracker } from './taskTracker'
+export { EntityTaskTracker } from './taskTracker';

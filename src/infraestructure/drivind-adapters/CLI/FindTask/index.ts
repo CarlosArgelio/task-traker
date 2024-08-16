@@ -1,1 +1,1 @@
-export { FindTaskCLI } from './findTask'
+export { FindTaskCLI } from './findTask';

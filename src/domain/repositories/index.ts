@@ -1,1 +1,1 @@
-export { ITaskTrackerRepositoryAsync } from './taskTracker'
+export { ITaskTrackerRepositoryAsync } from './taskTracker';

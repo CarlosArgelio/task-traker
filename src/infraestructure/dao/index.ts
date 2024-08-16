@@ -1,1 +1,1 @@
-export { FileSystemTaskTrackerDAO } from './inFileSystem'
+export { FileSystemTaskTrackerDAO } from './inFileSystem';
