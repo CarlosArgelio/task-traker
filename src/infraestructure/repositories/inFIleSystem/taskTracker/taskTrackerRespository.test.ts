@@ -74,4 +74,16 @@ describe('TaskTrackerRepositoryAsync', () => {
       expect(update.description).toEqual('change');
     });
   });
+
+  describe('delete method', () => {
+    test('should delete a task', async () => {
+      const id = 1;
+
+      const deleteTask = await repositorie.delete(id);
+      const findAll = await repositorie.findAll();
+
+      expect(findAll.length).toEqual(1);
+      expect(deleteTask).toBeUndefined();
+    });
+  });
 });

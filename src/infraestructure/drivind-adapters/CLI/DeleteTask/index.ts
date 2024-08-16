@@ -1,0 +1,1 @@
+export { DeleteTaskCLI } from './deleteTask';

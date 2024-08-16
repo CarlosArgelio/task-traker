@@ -19,7 +19,13 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
     }
   }
   findById(id: number): Promise<ITask> {
-    throw new Error('Method not implemented.');
+    try {
+      const task = this.taskDAO.findById(id);
+      return task;
+    } catch (error) {
+      // @ts-ignore
+      throw new Error(error);
+    }
   }
   async save(entity: ICreateTask): Promise<ITask> {
     try {
@@ -32,6 +38,7 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
   }
   async update(id: number, entity: IUpdateTask): Promise<ITask> {
     try {
+      await this.findById(id);
       const update = await this.taskDAO.update(id, entity);
       return update;
     } catch (error) {
@@ -39,7 +46,13 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
       throw new Error(error);
     }
   }
-  delete(id: number): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: number): Promise<void> {
+    try {
+      await this.findById(id);
+      await this.taskDAO.delete(id);
+    } catch (error) {
+      // @ts-ignore
+      throw new Error(error);
+    }
   }
 }
