@@ -4,7 +4,7 @@
  * U: Update
  */
 export interface IRepositoryAsync<E, C, U> {
-  findAll(): Promise<E[]>;
+  findAll(filter?: string): Promise<E[]>;
   findById(id: number): Promise<E>;
   save(entity: C): Promise<E>;
   update(id: number, entity: U): Promise<E>;

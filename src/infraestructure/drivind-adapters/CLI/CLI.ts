@@ -39,7 +39,9 @@ export class TaskTrackerCLI {
         break;
 
       case 'list':
-        await new FindTaskCLI(new TaskTrackerFinderUseCase(service)).findTask();
+        await new FindTaskCLI(new TaskTrackerFinderUseCase(service)).findTask(
+          args[1],
+        );
         break;
 
       case 'update':

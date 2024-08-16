@@ -8,8 +8,8 @@ export class TaskTrackerService {
     this.repository = repository;
   }
 
-  async findAll() {
-    return await this.repository.findAll();
+  async findAll(filter: string) {
+    return await this.repository.findAll(filter);
   }
 
   async create(data: ICreateTask) {

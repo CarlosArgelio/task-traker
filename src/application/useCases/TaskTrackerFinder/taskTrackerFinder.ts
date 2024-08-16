@@ -7,9 +7,9 @@ export class TaskTrackerFinderUseCase {
     this.service = service;
   }
 
-  async run() {
+  async run(filter: string) {
     try {
-      const service = await this.service.findAll();
+      const service = await this.service.findAll(filter);
       return service;
     } catch (error) {
       // @ts-ignore

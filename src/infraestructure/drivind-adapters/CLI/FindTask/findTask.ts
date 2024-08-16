@@ -8,9 +8,9 @@ export class FindTaskCLI {
     this.useCase = useCase;
   }
 
-  async findTask() {
+  async findTask(filter: string) {
     try {
-      const newTask = await this.useCase.run();
+      const newTask = await this.useCase.run(filter);
       const mapping = newTask.map((task) => [
         task.id,
         task.description,

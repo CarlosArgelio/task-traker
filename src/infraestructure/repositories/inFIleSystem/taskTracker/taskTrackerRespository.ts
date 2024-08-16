@@ -9,9 +9,12 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
     this.taskDAO = taskDAO;
   }
 
-  async findAll(): Promise<ITask[]> {
+  async findAll(filter?: string): Promise<ITask[]> {
     try {
       const tasks = await this.taskDAO.findAll();
+      if (filter) {
+        return tasks.filter((task) => task.status === filter);
+      }
       return tasks;
     } catch (error) {
       // @ts-ignore
