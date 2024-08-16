@@ -4,11 +4,11 @@
  * U: Update
  */
 export interface IRepositoryAsync<E, C, U> {
-    findAll(): Promise<E[] | null>;
-    findById(id: number): Promise<E | null>;
+    findAll(): Promise<E[]>;
+    findById(id: number): Promise<E>;
     save(entity: C): Promise<E>;
     update(id: number, entity: U): Promise<E>;
-    delete(id: number): Promise<void | null>;
+    delete(id: number): Promise<void>;
   }
 
 /**
