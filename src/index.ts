@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { TaskTrackerCLI } from './infraestructure/drivind-adapters';
+import { TaskTrackerCLI } from './presentation';
 import { InitDB } from './infraestructure/db/JSON';
 import { LogError } from './infraestructure/errors';
 

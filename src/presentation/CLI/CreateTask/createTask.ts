@@ -1,4 +1,4 @@
-import { TaskTrackerCreatorUseCase } from '../../../../application/useCases';
+import { TaskTrackerCreatorUseCase } from '../../../application/useCases';
 
 export class CreateTaskCLI {
   private readonly useCase: TaskTrackerCreatorUseCase;

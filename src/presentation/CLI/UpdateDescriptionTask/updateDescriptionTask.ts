@@ -1,5 +1,5 @@
-import { TaskTrackerUpdatorUseCase } from '../../../../application/useCases';
-import { IUpdateTask, TaskStatus } from '../../../../domain/interfaces';
+import { TaskTrackerUpdatorUseCase } from '../../../application/useCases';
+import { IUpdateTask, TaskStatus } from '../../../domain/interfaces';
 
 export class UpdateDescriptionTaskCLI {
   private readonly useCase: TaskTrackerUpdatorUseCase;

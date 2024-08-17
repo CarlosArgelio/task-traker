@@ -1,5 +1,5 @@
 import { table } from 'console';
-import { TaskTrackerFinderUseCase } from '../../../../application/useCases';
+import { TaskTrackerFinderUseCase } from '../../../application/useCases';
 
 export class FindTaskCLI {
   private readonly useCase: TaskTrackerFinderUseCase;

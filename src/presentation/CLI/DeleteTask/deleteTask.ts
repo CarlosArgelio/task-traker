@@ -1,4 +1,4 @@
-import { TaskTrackerDeleterUseCase } from '../../../../application/useCases';
+import { TaskTrackerDeleterUseCase } from '../../../application/useCases';
 
 export class DeleteTaskCLI {
   private readonly useCase: TaskTrackerDeleterUseCase;

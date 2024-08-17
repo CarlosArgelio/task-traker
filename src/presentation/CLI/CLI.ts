@@ -1,7 +1,7 @@
-import { TaskTrackerService } from '../../../domain/services/taskTrackerService/taskTrackerService';
-import { FileSystemTaskTrackerDAO } from '../../dao';
-import { TaskTrackerRepositoryAsync } from '../../repositories/inFIleSystem';
-import { TaskTrackerInFileSystem } from '../../persistence';
+import { TaskTrackerService } from '../../domain/services/taskTrackerService/taskTrackerService';
+import { FileSystemTaskTrackerDAO } from '../../infraestructure/dao';
+import { TaskTrackerRepositoryAsync } from '../../infraestructure/repositories/inFIleSystem';
+import { TaskTrackerInFileSystem } from '../../infraestructure/persistence';
 import { CreateTaskCLI } from './CreateTask';
 import { FindTaskCLI } from './FindTask';
 import { UpdateDescriptionTaskCLI } from './UpdateDescriptionTask';
@@ -10,8 +10,8 @@ import {
   TaskTrackerDeleterUseCase,
   TaskTrackerFinderUseCase,
   TaskTrackerUpdatorUseCase,
-} from '../../../application/useCases';
-import { TaskStatus } from '../../../domain/interfaces';
+} from '../../application/useCases';
+import { TaskStatus } from '../../domain/interfaces';
 import { DeleteTaskCLI } from './DeleteTask';
 
 export class TaskTrackerCLI {
