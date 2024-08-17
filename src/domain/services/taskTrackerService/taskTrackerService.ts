@@ -10,9 +10,9 @@ export class TaskTrackerService {
     this.repository = repository;
   }
 
-  async findAll(filter: string) {
+  async findAll(filter: string | undefined) {
     try {
-      new Status(filter as TaskStatus);
+      if (filter !== undefined) new Status(filter as TaskStatus);
       return await this.repository.findAll(filter);
     } catch (error) {
       throw error;

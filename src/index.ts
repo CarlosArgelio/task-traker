@@ -9,7 +9,6 @@ class Main {
     try {
       const init = new InitDB();
       await init.init();
-      console.log('🚀 ~ pathDB:', init.pathDB);
       new TaskTrackerCLI(init.pathDB);
     } catch (error) {
       // @ts-ignore
