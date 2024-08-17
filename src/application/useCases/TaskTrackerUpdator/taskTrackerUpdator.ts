@@ -1,3 +1,4 @@
+import { ConflitError, IsNotValidTypeError } from '../../../domain/exceptions';
 import { IUpdateTask, TaskStatus } from '../../../domain/interfaces';
 import { TaskTrackerService } from '../../../domain/services/taskTrackerService/taskTrackerService';
 
@@ -17,8 +18,12 @@ export class TaskTrackerUpdatorUseCase {
       const service = await this.service.update(id, changes);
       return service;
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      if (error instanceof IsNotValidTypeError) {
+        throw error;
+      } else {
+        console.log(error);
+        throw new ConflitError('Unknown error');
+      }
     }
   }
 }
