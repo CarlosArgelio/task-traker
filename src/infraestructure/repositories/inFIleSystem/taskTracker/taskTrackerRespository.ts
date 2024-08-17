@@ -17,8 +17,7 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
       }
       return tasks;
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      throw error;
     }
   }
   findById(id: number): Promise<ITask> {
@@ -26,8 +25,7 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
       const task = this.taskDAO.findById(id);
       return task;
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      throw error;
     }
   }
   async save(entity: ICreateTask): Promise<ITask> {
@@ -35,8 +33,7 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
       const task = await this.taskDAO.create(entity);
       return task;
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      throw error;
     }
   }
   async update(id: number, entity: IUpdateTask): Promise<ITask> {
@@ -45,8 +42,7 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
       const update = await this.taskDAO.update(id, entity);
       return update;
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      throw error;
     }
   }
   async delete(id: number): Promise<void> {
@@ -54,8 +50,7 @@ export class TaskTrackerRepositoryAsync implements ITaskTrackerRepositoryAsync {
       await this.findById(id);
       await this.taskDAO.delete(id);
     } catch (error) {
-      // @ts-ignore
-      throw new Error(error);
+      throw error;
     }
   }
 }
