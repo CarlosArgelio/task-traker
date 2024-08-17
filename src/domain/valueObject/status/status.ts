@@ -1,3 +1,5 @@
+import { IsNotValidTypeError } from './../../exceptions';
+
 /**
  * Status:
  * todo, in-progress, done
@@ -19,7 +21,10 @@ export class Status {
 
   validate() {
     if (!this.isValidStatus()) {
-      throw new Error('Invalid status');
+      throw new IsNotValidTypeError(
+        `Status only must by ${Object.values(TaskStatus).join(', ')}`,
+        true,
+      );
     }
 
     return true;

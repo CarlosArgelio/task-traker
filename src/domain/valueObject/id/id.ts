@@ -1,3 +1,5 @@
+import { IsNotValidTypeError } from './../../exceptions';
+
 export class ID {
   public id: number;
 
@@ -8,7 +10,7 @@ export class ID {
   }
 
   isNumber() {
-    return typeof this.id === 'number';
+    return Number.isInteger(this.id);
   }
 
   isNotEmpty() {
@@ -16,10 +18,18 @@ export class ID {
   }
 
   validate() {
+    if (this.id < 0) {
+      throw new IsNotValidTypeError('ID cannot be negative', true);
+    }
+    if (this.id === 0) {
+      throw new IsNotValidTypeError('ID cannot be zero', true);
+    }
+    if (!this.isNumber()) {
+      throw new IsNotValidTypeError('ID must be an integer', true);
+    }
+
     if (!this.isNumber() || !this.isNotEmpty()) {
       throw new Error('Invalid ID');
     }
-
-    return true;
   }
 }

@@ -1,3 +1,5 @@
+import { IsNotValidTypeError } from './../../exceptions';
+
 export class Description {
   public description: string;
 
@@ -15,10 +17,11 @@ export class Description {
   }
 
   validate() {
-    if (!this.isString() || !this.isNotEmpty()) {
-      throw new Error('Invalid Description');
+    if (!this.isString()) {
+      throw new IsNotValidTypeError('Description must be a string', true);
     }
-
-    return true;
+    if (!this.isNotEmpty()) {
+      throw new Error('Description cannot be empty');
+    }
   }
 }
