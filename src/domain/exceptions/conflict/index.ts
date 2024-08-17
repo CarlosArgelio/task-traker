@@ -1,0 +1,1 @@
+export { ConflitError } from './conflict';
