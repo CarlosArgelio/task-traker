@@ -1,3 +1,4 @@
+import { NotFoundError } from '../../../../domain/exceptions/notFoundError/notFoundError';
 import {
   ICreateTask,
   ITask,
@@ -16,7 +17,7 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
 
   async findAll(): Promise<ITask[]> {
     const tasks = await this.fileSystem.read();
-    if (!tasks) throw new Error('Tasks not found');
+    if (!tasks) throw new NotFoundError('Tasks not found', true);
 
     return tasks;
   }
@@ -24,7 +25,7 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
   async findById(id: number): Promise<ITask> {
     const task = await this.findAll();
     const findTask = task.find((task) => task.id === id);
-    if (!findTask) throw new Error('Task not found');
+    if (!findTask) throw new NotFoundError('Task not found', true);
 
     return findTask;
   }
@@ -60,7 +61,7 @@ export class FileSystemTaskTrackerDAO implements ITaskTrackerDAOAsync {
 
     // find index
     const index = findAll.findIndex((task) => task.id === id);
-    if (index === -1) throw new Error('Task not found');
+    if (index === -1) throw new NotFoundError('Task not found', true);
 
     // update data in memory
     const updateTask = { ...findAll[index], ...entity };
