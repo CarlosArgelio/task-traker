@@ -1,4 +1,4 @@
-import { IsNotValidTypeError } from './../../exceptions';
+import { IsNotValidTypeError, IsEmptyError } from './../../exceptions';
 
 export class ID {
   public id: number;
@@ -18,6 +18,9 @@ export class ID {
   }
 
   validate() {
+    if (!this.isNotEmpty()) {
+      throw new IsEmptyError('ID cannot be empty', true);
+    }
     if (this.id < 0) {
       throw new IsNotValidTypeError('ID cannot be negative', true);
     }
@@ -26,10 +29,6 @@ export class ID {
     }
     if (!this.isNumber()) {
       throw new IsNotValidTypeError('ID must be an integer', true);
-    }
-
-    if (!this.isNumber() || !this.isNotEmpty()) {
-      throw new Error('Invalid ID');
     }
   }
 }

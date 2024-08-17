@@ -1,11 +1,11 @@
-export class IsNotValidTypeError extends Error {
+export class IsEmptyError extends Error {
   public readonly isOperational: boolean = true;
 
   constructor(message: string, isOperational: boolean) {
     super(message);
     this.isOperational = isOperational;
 
-    this.name = 'IsNotValidTypeError';
+    this.name = 'IsEmptyError';
     Error.captureStackTrace(this);
   }
 }

@@ -22,6 +22,8 @@ describe('Status Value Object', () => {
 
   test('should throw an error to insert an invalid Status', () => {
     const status = 'invalid-status';
-    expect(() => new Status(status as TaskStatus)).toThrow('Invalid status');
+    expect(() => new Status(status as TaskStatus)).toThrow(
+      'Status only must be todo, in-progress, done',
+    );
   });
 });

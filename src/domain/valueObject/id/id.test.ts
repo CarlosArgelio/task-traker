@@ -6,12 +6,29 @@ describe('ID Value Object', () => {
     const id = new ID(number);
 
     expect(id.id).toBe(1);
-    expect(id.validate()).toBe(true);
   });
 
   test('shoud throw when id is not number', () => {
     const number = '1';
     // @ts-ignore
-    expect(() => new ID(number)).toThrow('Invalid ID');
+    expect(() => new ID(number)).toThrow('ID must be an integer');
+  });
+
+  test('shoud throw when id is < 0', () => {
+    const number = -1;
+    // @ts-ignore
+    expect(() => new ID(number)).toThrow('ID cannot be negative');
+  });
+
+  test('shoud throw when id is equal 0', () => {
+    const number = 0;
+    // @ts-ignore
+    expect(() => new ID(number)).toThrow('ID cannot be zero');
+  });
+
+  test('shoud throw when id is empty', () => {
+    const number = undefined;
+    // @ts-ignore
+    expect(() => new ID(number)).toThrow('ID cannot be empty');
   });
 });

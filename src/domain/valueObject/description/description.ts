@@ -1,4 +1,4 @@
-import { IsNotValidTypeError } from './../../exceptions';
+import { IsNotValidTypeError, IsEmptyError } from './../../exceptions';
 
 export class Description {
   public description: string;
@@ -21,7 +21,7 @@ export class Description {
       throw new IsNotValidTypeError('Description must be a string', true);
     }
     if (!this.isNotEmpty()) {
-      throw new Error('Description cannot be empty');
+      throw new IsEmptyError('Description cannot be empty', true);
     }
   }
 }

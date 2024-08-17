@@ -22,7 +22,7 @@ export class Status {
   validate() {
     if (!this.isValidStatus()) {
       throw new IsNotValidTypeError(
-        `Status only must by ${Object.values(TaskStatus).join(', ')}`,
+        `Status only must be ${Object.values(TaskStatus).join(', ')}`,
         true,
       );
     }
