@@ -17,9 +17,9 @@ export class HandleError extends Error {
 export class LogError {
   public readonly name: string;
   public readonly message: string;
-  public readonly isOperational: string;
+  public readonly isOperational: boolean;
 
-  constructor(name: string, message: string, isOperational: string) {
+  constructor(name: string, message: string, isOperational: boolean) {
     this.name = name;
     this.message = message;
     this.isOperational = isOperational;
