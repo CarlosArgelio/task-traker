@@ -2,11 +2,20 @@
 
 import { TaskTrackerCLI } from './infraestructure/drivind-adapters';
 import { InitDB } from './infraestructure/db/JSON';
+import { LogError } from './infraestructure/errors';
 
-(async () => {
-  const init = new InitDB();
-  await init.init();
-  console.log('🚀 ~ pathDB:', init.pathDB);
+class Main {
+  public static async init() {
+    try {
+      const init = new InitDB();
+      await init.init();
+      console.log('🚀 ~ pathDB:', init.pathDB);
+      new TaskTrackerCLI(init.pathDB);
+    } catch (error) {
+      // @ts-ignore
+      new LogError(error.name, error.message, error.isOperational);
+    }
+  }
+}
 
-  new TaskTrackerCLI(init.pathDB);
-})();
+Main.init();
