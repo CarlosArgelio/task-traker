@@ -6,6 +6,5 @@ export class IsNotValidTypeError extends Error {
     this.isOperational = isOperational;
 
     this.name = 'IsNotValidTypeError';
-    Error.captureStackTrace(this);
   }
 }

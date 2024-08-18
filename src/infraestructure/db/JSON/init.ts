@@ -11,8 +11,6 @@ export class InitDB {
       await fs.access(this.pathDB);
     } catch (error) {
       if (error instanceof Error) {
-        console.log('��� ~ InitDB ~ init ~ error:', error);
-
         const fsError = error as NodeJS.ErrnoException;
 
         if (fsError.code === 'ENOENT') {

@@ -18,8 +18,7 @@ export class FindTaskCLI {
       ]);
       table(mapping);
     } catch (error) {
-      console.log('🚀 ~ FindTaskCLI ~ findTask ~ error:', error);
-      throw new Error(`Error creating task: ${error}`);
+      throw error;
     }
   }
 }

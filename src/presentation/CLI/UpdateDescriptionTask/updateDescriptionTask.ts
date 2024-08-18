@@ -14,7 +14,7 @@ export class UpdateDescriptionTaskCLI {
         await this.useCase.run(id, description, undefined);
       if (status !== undefined) await this.useCase.run(id, undefined, status);
     } catch (error) {
-      throw new Error(`Error creating task: ${error}`);
+      throw error;
     }
   }
 }

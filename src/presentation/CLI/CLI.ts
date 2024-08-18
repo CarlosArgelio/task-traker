@@ -19,7 +19,6 @@ export class TaskTrackerCLI {
 
   constructor(path: string) {
     this.path = path;
-    this.gettingStarted();
   }
 
   async gettingStarted() {
@@ -32,45 +31,49 @@ export class TaskTrackerCLI {
       ),
     );
 
-    switch (args[0]) {
-      case 'add':
-        await new CreateTaskCLI(
-          new TaskTrackerCreatorUseCase(service),
-        ).createTask(args[1]);
-        break;
+    try {
+      switch (args[0]) {
+        case 'add':
+          await new CreateTaskCLI(
+            new TaskTrackerCreatorUseCase(service),
+          ).createTask(args[1]);
+          break;
 
-      case 'list':
-        await new FindTaskCLI(new TaskTrackerFinderUseCase(service)).findTask(
-          args[1],
-        );
-        break;
+        case 'list':
+          await new FindTaskCLI(new TaskTrackerFinderUseCase(service)).findTask(
+            args[1],
+          );
+          break;
 
-      case 'update':
-        await new UpdateDescriptionTaskCLI(
-          new TaskTrackerUpdatorUseCase(service),
-        ).updateTask(+args[1], args[2]);
-        break;
+        case 'update':
+          await new UpdateDescriptionTaskCLI(
+            new TaskTrackerUpdatorUseCase(service),
+          ).updateTask(+args[1], args[2]);
+          break;
 
-      case 'delete':
-        await new DeleteTaskCLI(
-          new TaskTrackerDeleterUseCase(service),
-        ).deleteTask(+args[1]);
-        break;
+        case 'delete':
+          await new DeleteTaskCLI(
+            new TaskTrackerDeleterUseCase(service),
+          ).deleteTask(+args[1]);
+          break;
 
-      case 'mark-in-progress':
-        await new UpdateDescriptionTaskCLI(
-          new TaskTrackerUpdatorUseCase(service),
-        ).updateTask(+args[1], undefined, TaskStatus.IN_PROGRESS);
-        break;
+        case 'mark-in-progress':
+          await new UpdateDescriptionTaskCLI(
+            new TaskTrackerUpdatorUseCase(service),
+          ).updateTask(+args[1], undefined, TaskStatus.IN_PROGRESS);
+          break;
 
-      case 'mark-done':
-        await new UpdateDescriptionTaskCLI(
-          new TaskTrackerUpdatorUseCase(service),
-        ).updateTask(+args[1], undefined, TaskStatus.DONE);
-        break;
+        case 'mark-done':
+          await new UpdateDescriptionTaskCLI(
+            new TaskTrackerUpdatorUseCase(service),
+          ).updateTask(+args[1], undefined, TaskStatus.DONE);
+          break;
 
-      default:
-        console.log('Invalid command. Please try again.');
+        default:
+          console.log('Invalid command. Please try again.');
+      }
+    } catch (error) {
+      throw error;
     }
   }
 }

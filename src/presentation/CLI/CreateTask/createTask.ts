@@ -12,7 +12,7 @@ export class CreateTaskCLI {
       const newTask = await this.useCase.run({ description });
       console.log(`Task added successfully (ID: ${newTask.id})`);
     } catch (error) {
-      throw new Error(`Error creating task: ${error}`);
+      throw error;
     }
   }
 }

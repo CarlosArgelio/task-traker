@@ -15,16 +15,16 @@ class Main {
     try {
       const init = new InitDB();
       await init.init();
-      new TaskTrackerCLI(init.pathDB);
+      await new TaskTrackerCLI(init.pathDB).gettingStarted();
     } catch (error) {
       if (error instanceof NotFoundError) {
-        new LogError(error.name, error.message, error.isOperational).log();
+        new LogError(error.name, error.message, error.isOperational);
       } else if (error instanceof IsNotValidTypeError) {
-        new LogError(error.name, error.message, error.isOperational).log();
+        new LogError(error.name, error.message, error.isOperational);
       } else if (error instanceof IsEmptyError) {
-        new LogError(error.name, error.message, error.isOperational).log();
+        new LogError(error.name, error.message, error.isOperational);
       } else if (error instanceof ConflitError) {
-        new LogError(error.name, error.message, error.isOperational).log();
+        new LogError(error.name, error.message, error.isOperational);
       }
     }
   }

@@ -11,7 +11,7 @@ export class DeleteTaskCLI {
     try {
       await this.useCase.run(id);
     } catch (error) {
-      throw new Error(`Error creating task: ${error}`);
+      throw error;
     }
   }
 }

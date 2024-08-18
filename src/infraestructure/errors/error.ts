@@ -30,7 +30,7 @@ export class LogError {
   log() {
     console.log('Error Generate');
     console.log(
-      `Name: ${this.name} \n\n Message: ${this.message} \n\n Is Operationa: ${this.isOperational}`,
+      `Name: ${this.name} \n\n Message: ${this.message} \n\n Is Operational: ${this.isOperational}`,
     );
   }
 }
